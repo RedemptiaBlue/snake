@@ -13,7 +13,6 @@ function App() {
   window.addEventListener("keydown", (e) => handleKeyDown(e));
 
   function handleKeyDown(e) {
-    e.preventDefault();
     switch (e.key) {
       case "ArrowLeft":
         setDirection("left");
@@ -40,47 +39,51 @@ function App() {
     }
   }
 
+  function setHeadCoordinates() {
+    if (start) {
+      console.log(direction);
+      switch (direction) {
+        case "left":
+          if (x - 20 >= 0) setX(x - 20);
+          else {
+            setStart(false);
+            setCollided(true);
+          }
+          break;
+        case "right":
+          if (x + 20 <= 520) setX(x + 20);
+          else {
+            setStart(false);
+            setCollided(true);
+          }
+          break;
+        case "up":
+          if (y - 20 >= 0) setY(y - 20);
+          else {
+            setStart(false);
+            setCollided(true);
+          }
+          break;
+        case "down":
+          if (y + 20 <= 520) setY(y + 20);
+          else {
+            setStart(false);
+            setCollided(true);
+          }
+          break;
+        default:
+          return;
+      }
+    }
+  }
+
   useEffect(() => {
     const interval = setInterval(() => {
-      if (start) {
-        console.log(direction);
-        switch (direction) {
-          case "left":
-            if (x - 20 >= 0) setX(x - 20);
-            else {
-              setStart(false);
-              setCollided(true);
-            }
-            break;
-          case "right":
-            if (x + 20 < 520) setX(x + 20);
-            else {
-              setStart(false);
-              setCollided(true);
-            }
-            break;
-          case "up":
-            if (y - 20 >= 0) setY(y - 20);
-            else {
-              setStart(false);
-              setCollided(true);
-            }
-            break;
-          case "down":
-            if (y + 20 < 520) setY(y + 20);
-            else {
-              setStart(false);
-              setCollided(true);
-            }
-            break;
-          default:
-            return;
-        }
-      }
-    }, 500);
+      setHeadCoordinates();
+    }, 200);
     console.log(`(${x},${y})`);
     return () => clearInterval(interval);
-  }, [direction, start, x, y]);
+  }, [start, x, y]);
 
   function buildHead() {
     return <div id="head" style={{ top: y, left: x }}></div>;
