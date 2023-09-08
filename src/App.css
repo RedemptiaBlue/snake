@@ -18,9 +18,11 @@
   height: 540px;
 }
 
-#head {
+.snake {
   width: 20px;
   height: 20px;
   background-color: blueviolet;
-  position: relative;
+  position: fixed;
+  display: inline-block;
+  margin: 0;
 }

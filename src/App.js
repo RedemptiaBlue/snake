@@ -1,14 +1,15 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
+import Snake from ".";
 
 function App() {
-  const [time, setTime] = useState(Date.now());
-  const [x, setX] = useState(240);
-  const [y, setY] = useState(240);
+  const [x, setX] = useState(610);
+  const [y, setY] = useState(341.5);
   const [direction, setDirection] = useState("left");
   const [score, setScore] = useState(0);
   const [start, setStart] = useState(false);
   const [collided, setCollided] = useState(false);
+  const [snakeCoords, setSnakeCoords] = useState([]);
 
   window.addEventListener("keydown", (e) => handleKeyDown(e));
 
@@ -28,10 +29,11 @@ function App() {
         break;
       case "Enter":
         if (!start) {
-          setX(240);
-          setY(240);
+          setX(610);
+          setY(341.5);
           setDirection("left");
           setStart(true);
+          setSnakeCoords([]);
         }
         break;
       default:
@@ -39,54 +41,83 @@ function App() {
     }
   }
 
-  function setHeadCoordinates() {
+  useEffect(() => {
     if (start) {
-      console.log(direction);
-      switch (direction) {
-        case "left":
-          if (x - 20 >= 0) setX(x - 20);
-          else {
-            setStart(false);
-            setCollided(true);
-          }
-          break;
-        case "right":
-          if (x + 20 <= 520) setX(x + 20);
-          else {
-            setStart(false);
-            setCollided(true);
-          }
-          break;
-        case "up":
-          if (y - 20 >= 0) setY(y - 20);
-          else {
-            setStart(false);
-            setCollided(true);
-          }
-          break;
-        case "down":
-          if (y + 20 <= 520) setY(y + 20);
-          else {
-            setStart(false);
-            setCollided(true);
-          }
-          break;
-        default:
-          return;
+      const interval = setInterval(() => {
+        setHeadCoordinates();
+      }, 200);
+      return () => clearInterval(interval);
+    }
+
+    function setHeadCoordinates() {
+      if (start) {
+        switch (direction) {
+          case "left":
+            if (x - 20 >= 350) {
+              console.log(`(${x}, ${y})`);
+              setSnakeCoords([{ x, y }, ...snakeCoords]);
+              setX(x - 20);
+            } else {
+              setStart(false);
+              setCollided(true);
+            }
+            break;
+          case "right":
+            if (x + 20 <= 870) {
+              setSnakeCoords([{ x, y }, ...snakeCoords]);
+
+              setX(x + 20);
+            } else {
+              setStart(false);
+              setCollided(true);
+            }
+            break;
+          case "up":
+            if (y - 20 >= 80) {
+              setSnakeCoords([{ x, y }, ...snakeCoords]);
+              setY(y - 20);
+            } else {
+              setStart(false);
+              setCollided(true);
+            }
+            break;
+          case "down":
+            if (y + 20 <= 620) {
+              setSnakeCoords([{ x, y }, ...snakeCoords]);
+              setY(y + 20);
+            } else {
+              setStart(false);
+              setCollided(true);
+            }
+            break;
+          default:
+            return;
+        }
       }
     }
-  }
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setHeadCoordinates();
-    }, 200);
-    console.log(`(${x},${y})`);
-    return () => clearInterval(interval);
   }, [start, x, y]);
 
-  function buildHead() {
-    return <div id="head" style={{ top: y, left: x }}></div>;
+  function buildSnake() {
+    let snake = [];
+    snake.push(
+      <div
+        className="snake"
+        key="0"
+        id="head"
+        style={{ top: y, left: x }}
+      ></div>
+    );
+    for (let n in snakeCoords) {
+      snake.push(
+        <div
+          className="snake"
+          id={`body ${n + 1}`}
+          key={n + 1}
+          style={{ top: snakeCoords[n].y, left: snakeCoords[n].x }}
+        ></div>
+      );
+    }
+    return snake;
   }
 
   function gameOver() {
@@ -99,7 +130,7 @@ function App() {
     <div className="App">
       <div id="gameScoreContainer">
         <h1 id="score">Score: {score}</h1>
-        <div id="gameScreen">{buildHead()}</div>
+        <div id="gameScreen">{buildSnake()}</div>
       </div>
       {gameOver()}
     </div>
