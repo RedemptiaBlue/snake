@@ -5,10 +5,7 @@ function App() {
   const [x, setX] = useState(16);
   const [y, setY] = useState(16);
   const [direction, setDirection] = useState("left");
-  const [apple, setApple] = useState({
-    x: Math.floor(Math.random() * 16) * 2,
-    y: Math.floor(Math.random() * 16) * 2,
-  });
+  const [apple, setApple] = useState();
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [start, setStart] = useState(false);
