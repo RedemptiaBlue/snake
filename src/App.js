@@ -5,7 +5,7 @@ function App() {
   const [x, setX] = useState(16);
   const [y, setY] = useState(16);
   const [direction, setDirection] = useState("left");
-  const [apple, setApple] = useState();
+  const [apple, setApple] = useState({ x: 16, y: 16 });
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [start, setStart] = useState(false);
