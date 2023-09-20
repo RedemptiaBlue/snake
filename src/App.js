@@ -53,14 +53,13 @@ function App() {
           setX(16);
           setY(16);
           setDirection("left");
-          setStart(true);
-          setHighScore(score);
           setScore(0);
           setSnakeCoords([]);
           setApple({
             x: randomX(),
             y: randomY(),
           });
+          if (highScore < score) setHighScore(score);
         }
         break;
       default:
