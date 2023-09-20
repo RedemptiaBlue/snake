@@ -14,15 +14,20 @@
 }
 #gameScreen {
   border: 2px solid black;
-  width: 540px;
-  height: 540px;
+  width: 34em;
+  height: 34em;
 }
 
 .snake {
-  width: 20px;
-  height: 20px;
+  width: 2em;
+  height: 2em;
   background-color: blueviolet;
-  position: fixed;
-  display: inline-block;
-  margin: 0;
+  position: relative;
+}
+
+.apple {
+  width: 2em;
+  height: 2em;
+  background-color: red;
+  position: relative;
 }
