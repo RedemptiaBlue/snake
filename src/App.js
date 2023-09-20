@@ -12,7 +12,7 @@ function App() {
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [start, setStart] = useState(false);
-  const [gameOver, setGamOver] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
   const [snakeCoords, setSnakeCoords] = useState([]);
 
   window.addEventListener("keydown", (e) => handleKeyDown(e));
@@ -49,7 +49,8 @@ function App() {
         break;
       case "Enter":
         if (!start) setStart(true);
-        if (!gameOver) {
+        if (gameOver) {
+          setGameOver(false);
           setX(16);
           setY(16);
           setDirection("left");
@@ -93,7 +94,7 @@ function App() {
               });
             }
           } else {
-            setGamOver(true);
+            setGameOver(true);
             collision = true;
           }
           break;
@@ -111,7 +112,7 @@ function App() {
               });
             }
           } else {
-            setGamOver(true);
+            setGameOver(true);
             collision = true;
           }
           break;
@@ -129,7 +130,7 @@ function App() {
               });
             }
           } else {
-            setGamOver(true);
+            setGameOver(true);
             collision = true;
           }
           break;
@@ -147,7 +148,7 @@ function App() {
               });
             }
           } else {
-            setGamOver(true);
+            setGameOver(true);
             collision = true;
           }
           break;
