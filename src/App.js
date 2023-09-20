@@ -14,19 +14,17 @@ function App() {
 
   window.addEventListener("keydown", (e) => handleKeyDown(e));
 
-  function randomX() {
-    let rand = Math.floor(Math.random() * 16) * 2;
+  function randomCoords() {
+    let rand = {
+      x: Math.floor(Math.random() * 16) * 2,
+      y: Math.floor(Math.random() * 16) * 2,
+    };
     // eslint-disable-next-line
-    while (snakeCoords.some((n) => n.x === rand))
-      rand = Math.floor(Math.random() * 16) * 2;
-    return rand;
-  }
-
-  function randomY() {
-    let rand = Math.floor(Math.random() * 16) * 2;
-    // eslint-disable-next-line
-    while (snakeCoords.some((n) => n.y === rand))
-      rand = Math.floor(Math.random() * 16) * 2;
+    while (snakeCoords.some((n) => n.x === rand.x && n.y === rand.y))
+      rand = {
+        x: Math.floor(Math.random() * 16) * 2,
+        y: Math.floor(Math.random() * 16) * 2,
+      };
     return rand;
   }
 
@@ -47,10 +45,7 @@ function App() {
       case "Enter":
         if (!start) {
           setStart(true);
-          setApple({
-            x: randomX(),
-            y: randomY(),
-          });
+          setApple(randomCoords());
         }
         if (gameOver) {
           setGameOver(false);
@@ -59,10 +54,7 @@ function App() {
           setDirection("left");
           setScore(0);
           setSnakeCoords([]);
-          setApple({
-            x: randomX(),
-            y: randomY(),
-          });
+          setApple(randomCoords());
           if (highScore < score) setHighScore(score);
         }
         break;
@@ -90,10 +82,7 @@ function App() {
             setX(x - 2);
             if (x - 2 === apple.x && y === apple.y) {
               setScore(score + 1);
-              setApple({
-                x: randomX(),
-                y: randomY(),
-              });
+              setApple(randomCoords());
             }
           } else {
             setGameOver(true);
@@ -108,10 +97,7 @@ function App() {
             setX(x + 2);
             if (x + 2 === apple.x && y === apple.y) {
               setScore(score + 1);
-              setApple({
-                x: randomX(),
-                y: randomY(),
-              });
+              setApple(randomCoords());
             }
           } else {
             setGameOver(true);
@@ -126,10 +112,7 @@ function App() {
             setY(y - 2);
             if (y - 2 === apple.y && x === apple.x) {
               setScore(score + 1);
-              setApple({
-                x: randomX(),
-                y: randomY(),
-              });
+              setApple(randomCoords());
             }
           } else {
             setGameOver(true);
@@ -144,10 +127,7 @@ function App() {
             setY(y + 2);
             if (y + 2 === apple.y && x === apple.x) {
               setScore(score + 1);
-              setApple({
-                x: randomX(),
-                y: randomY(),
-              });
+              setApple(randomCoords());
             }
           } else {
             setGameOver(true);
