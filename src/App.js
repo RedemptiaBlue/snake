@@ -9,9 +9,10 @@ function App() {
     x: Math.floor(Math.random() * 16) * 2,
     y: Math.floor(Math.random() * 16) * 2,
   });
-  const [score, setScore] = useState(2);
+  const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [start, setStart] = useState(false);
+  const [gameOver, setGamOver] = useState(false);
   const [snakeCoords, setSnakeCoords] = useState([]);
 
   window.addEventListener("keydown", (e) => handleKeyDown(e));
@@ -47,7 +48,8 @@ function App() {
         setDirection("down");
         break;
       case "Enter":
-        if (!start) {
+        if (!start) setStart(true);
+        if (!gameOver) {
           setX(16);
           setY(16);
           setDirection("left");
@@ -92,7 +94,7 @@ function App() {
               });
             }
           } else {
-            setStart(false);
+            setGamOver(true);
             collision = true;
           }
           break;
@@ -110,7 +112,7 @@ function App() {
               });
             }
           } else {
-            setStart(false);
+            setGamOver(true);
             collision = true;
           }
           break;
@@ -128,7 +130,7 @@ function App() {
               });
             }
           } else {
-            setStart(false);
+            setGamOver(true);
             collision = true;
           }
           break;
@@ -146,7 +148,7 @@ function App() {
               });
             }
           } else {
-            setStart(false);
+            setGamOver(true);
             collision = true;
           }
           break;
@@ -199,8 +201,8 @@ function App() {
     );
   }
 
-  function gameOver() {
-    if (!start) {
+  function renderGameOver() {
+    if (start && gameOver) {
       return <h1 id="GameOver">Game Over</h1>;
     } else return;
   }
@@ -218,7 +220,7 @@ function App() {
           {buildSnake()}
         </div>
       </div>
-      {gameOver()}
+      {renderGameOver()}
     </div>
   );
 }
