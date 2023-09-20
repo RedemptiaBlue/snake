@@ -51,4 +51,4 @@ jobs:
       - name: Deploy React to GithubPages
         uses: bitovi/github-actions-react-to-github-pages@v1.2.1
         with:
-          path: ./_site
+          path: ./build
