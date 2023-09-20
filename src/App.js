@@ -1,6 +1,5 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import Snake from ".";
 
 function App() {
   const [x, setX] = useState(16);
@@ -19,6 +18,7 @@ function App() {
 
   function randomX() {
     let rand = Math.floor(Math.random() * 16) * 2;
+    // eslint-disable-next-line
     while (snakeCoords.some((n) => n.x === rand))
       rand = Math.floor(Math.random() * 16) * 2;
     return rand;
@@ -26,6 +26,7 @@ function App() {
 
   function randomY() {
     let rand = Math.floor(Math.random() * 16) * 2;
+    // eslint-disable-next-line
     while (snakeCoords.some((n) => n.y === rand))
       rand = Math.floor(Math.random() * 16) * 2;
     return rand;
@@ -160,6 +161,7 @@ function App() {
         setSnakeCoords([{ x, y }, ...currentSC]);
       }
     }
+    // eslint-disable-next-line
   }, [start, x, y]);
 
   function buildSnake() {
