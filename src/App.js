@@ -45,7 +45,13 @@ function App() {
         setDirection("down");
         break;
       case "Enter":
-        if (!start) setStart(true);
+        if (!start) {
+          setStart(true);
+          setApple({
+            x: randomX(),
+            y: randomY(),
+          });
+        }
         if (gameOver) {
           setGameOver(false);
           setX(16);
