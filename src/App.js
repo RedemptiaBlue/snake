@@ -72,7 +72,6 @@ function App() {
   }
 
   useEffect(() => {
-    console.log(snakeCoords.length);
     if (start) {
       const interval = setInterval(() => {
         setHeadCoordinates();
